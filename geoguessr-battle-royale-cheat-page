@@ -1,0 +1,45 @@
+// ==UserScript==
+// @name		maps
+// @namespace		instagram.com/djurica_11/
+// @version		1.0.0
+// @description		Press SHIFT + ALT + K and the location of your current geoguessr game will open in a new tab
+// @author		Kornjaca Rade
+// @homepage		instagram.com/djurica_11/
+// @match		http*://*/*
+// @grant		none
+// @run-at		document-idle
+// ==/UserScript==
+
+/*
+	MAKE SURE TO RELOAD PAGE AFTER EVERY ROUND BEFORE PRESSING SHIFT + ALT + K
+*/
+
+(function() {
+	'use strict';
+
+	document.onkeydown = evt => {
+		evt = evt || window.event;
+		if(evt.shiftKey && evt.altKey && evt.keyCode == 75){
+            console.log("radi")
+			var x = document.body.firstChild.innerHTML
+let b = JSON.parse(x);
+            let rounds = b.rounds
+            console.log(rounds)
+            let max = 0
+            for(let i in rounds){
+                if(i > max){
+                    max = max + 1
+                }
+
+            }
+
+
+            let lat = rounds[max].lat
+            let lng = rounds[max].lng
+            const maps = "https://google.com/maps/place/" + lat + "," + lng;
+            window.open(maps, '_blank');
+
+
+		}
+	};
+})();
